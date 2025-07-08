@@ -219,11 +219,217 @@
 
             a=()=>"asdfgkl";
             document.getElementById("123").innerHTML=a();
-
-            */
-            let a="shoaib";
-            let b= 2025;
-            console.log(`${a} "sfv" ${1234789} hello my name is ${a} and this is ${b}`);
             document.writeln(`asdfghjkl ${a} dfbhm, ${1234567890} Zxcvbnm, ${b}`)
 
             
+            let a="shoaib";
+            let b= 2025;
+            console.log(`${a} "sfv" ${1234789} hello my name is ${a} and this is ${b}`);
+
+
+
+        //arrow function practice
+        let a=()=> console.log('asdfhkl');
+        a();
+        
+        let b=(c,d) => {let r=c*d ; console.log(r);};
+        b(5,10);
+        
+        let square=(num) => {console.log(num*num) };
+        square(7);
+
+        let oddeven= (num)=>{if (num%2==0) {
+                console.log(`${num} is Even number`);
+            }
+            else{
+                console.log(`${num} is Odd number`);
+          }
+       };
+       oddeven(7);
+       
+
+       let r=1;
+       let factorial=(num) => {
+            for (let i = 1; i <=num; i++) { 
+                r=r*i;
+            }
+            console.log(`${r} is factorial of ${num}`);
+       } 
+       factorial(5);
+
+       let fibbonacci=(num)=>{
+        let f1=0 ,f2=1;
+        console.log(f1);
+        console.log(f2);
+        for (let i = 1; i <= num-2; i++) {
+            let r=0;
+            r=f1+f2;
+            console.log(r);
+            f1=f2;
+            f2=r;  
+        }
+       }
+       fibbonacci(10);
+
+       //async, callback, 
+            document.writeln("1");
+            document.writeln("2");
+            setTimeout(() => {
+                document.writeln("asdfghjk");
+            },4000)
+            document.writeln("3");
+            document.writeln("4");
+            console.log("1");
+            console.log("2");
+            setTimeout(() => {
+                console.log("asdfghj");
+            },3000)
+            console.log("3");
+            console.log("4");
+
+
+
+
+
+            const req= new XMLHttpRequest();
+            req.addEventListener('readystatechange', () =>{
+                console.log(req , req.readyState);
+            } )
+            req.open('GET' , 'https://jsonplaceholder.typicode.com/todos/');
+            req.send();
+
+
+
+
+        const req=new XMLHttpRequest();
+        req.addEventListener('readystatechange',()=> {
+            //console.log(requ , requ.readyState);
+            if (req.readyState === 4) {
+                console.log(req.responseText);   
+                document.writeln(req.responseText);
+            }
+        });
+        requ.open('GET' , 'https://jsonplaceholder.typicode.com/todos/');
+        requ.send();
+
+        const getTodos = () =>{    
+            const requ=new XMLHttpRequest();
+            requ.addEventListener('readystatechange',()=> {
+                //console.log(requ , requ.readyState);
+                if (requ.readyState === 4 && requ.status === 200) {
+                    console.log(requ, requ.responseText);   
+                    document.writeln(requ , requ.responseText);
+                }
+                else if(requ.readyState === 4){
+                    console.log(`could not fetch the data`);
+                    document.writeln(`could not fetch the data`);
+                }
+            });
+            requ.open('GET' , 'https://jsonplaceholder.typicode.com/todos/');
+            requ.send();
+        }
+        getTodos() ;
+        
+
+        const getTodos = (callback) =>{    
+            const requ=new XMLHttpRequest();
+            requ.addEventListener('readystatechange',()=> {
+                //console.log(requ , requ.readyState);
+                
+                if (requ.readyState === 4 && requ.status === 200) {
+                    const data=JSON.parse(requ.responseText)
+                    callback(undefined,data);  
+                }
+                else if  (requ.readyState === 4){
+                    callback('could not find data', undefined);
+                }
+            });
+            requ.open('GET' , 'todos.json');
+            requ.send();
+        }
+        console.log(1);
+        console.log(2);
+        getTodos((err , data) =>{
+            console.log(`callback fired`);
+            if(err){
+                console.log(err);
+            }
+            else{
+                console.log(data);
+            }    
+        });
+        console.log(3);
+        console.log(4);
+
+
+         const getTodos = (callback) =>{    
+            const requ=new XMLHttpRequest();
+            requ.addEventListener('readystatechange',()=> {
+                //console.log(requ , requ.readyState);
+                
+                if (requ.readyState === 4 && requ.status === 200) {
+                    const data=JSON.parse(requ.responseText)
+                    callback(undefined,data);  
+                }
+                else if  (requ.readyState === 4){
+                    callback('could not find data', undefined);
+                }
+            });
+            requ.open('GET' , 'todos.json');
+            requ.send();
+        }
+        getTodos((err , data) =>{console.log(`callback fired`);if(err){console.log(err);}else{console.log(data); }    
+        });
+
+
+        
+
+
+        //promises
+
+        const a=()=>{
+
+            return new Promise((resolve,reject)=>{
+                resolve (' got the data');
+                reject ('got the error');
+            });     
+        };
+        a().then((data)=>{
+            console.log(data);
+            },
+            (err)=>{
+             console.log(err);  
+            }
+        );
+
+        a().then(data =>{
+            console.log(data);
+        }).catch(err => {
+            console.log(err);
+        });*/
+
+        const getTodos = (resource) =>{  
+
+            return new Promise ((resolve,reject)=> {             
+                const requ=new XMLHttpRequest();
+                
+                requ.addEventListener('readystatechange',()=> {
+                    //console.log(requ , requ.readyState);
+                    
+                    if (requ.readyState === 4 && requ.status === 200) {
+                        const data=JSON.parse(requ.responseText)
+                        resolve(data); 
+                    }
+                    else if  (requ.readyState === 4){
+                        reject('error getting the data')
+                    }
+                });
+                requ.open('GET' , resource);
+                requ.send();
+            });
+        }
+        getTodos('todos.json').then(data => {
+            console.log('promise resolved' ,data);
+        }).then(err => {
+            console.log('promise rejected ' , err);
+        });
