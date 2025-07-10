@@ -344,7 +344,7 @@
                     callback('could not find data', undefined);
                 }
             });
-            requ.open('GET' , 'todos.json');
+            requ.open('GET' , 'todos1.json');
             requ.send();
         }
         console.log(1);
@@ -375,14 +375,12 @@
                     callback('could not find data', undefined);
                 }
             });
-            requ.open('GET' , 'todos.json');
+            requ.open('GET' , 'todos1.json');
             requ.send();
         }
         getTodos((err , data) =>{console.log(`callback fired`);if(err){console.log(err);}else{console.log(data); }    
         });
 
-
-        
 
 
         //promises
@@ -406,8 +404,9 @@
             console.log(data);
         }).catch(err => {
             console.log(err);
-        });*/
+        });
 
+        // chaining promise
         const getTodos = (resource) =>{  
 
             return new Promise ((resolve,reject)=> {             
@@ -428,8 +427,28 @@
                 requ.send();
             });
         }
-        getTodos('todos.json').then(data => {
-            console.log('promise resolved' ,data);
-        }).then(err => {
+        getTodos('todos1.json').then(data => {
+            console.log('promise 1 resolved' ,data);
+            return getTodos('todos2.json');
+        }).then(data => {
+            console.log('promise 2 resolved ' , data);
+            return getTodos('todos3.json');
+        }).then(data => {
+            console.log('promise 3 resolved ' , data);
+        }).catch(err => {
             console.log('promise rejected ' , err);
         });
+*/
+
+        // fetch method
+        fetch('todos1.json').then((response) => {
+			console.log('resolved',response);
+            return response.json();
+		}).then(data =>{
+            console.log(data);
+        }).catch((err) => {
+			console.log('rejected',err);
+		});
+
+
+
