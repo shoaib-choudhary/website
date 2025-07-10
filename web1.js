@@ -450,8 +450,8 @@
 			console.log('rejected',err);
 		});
 
-*/
 
+        //fetch method with async and await
         const getTodos = async () => {
             const response= await fetch('todosa1.json');
             if (response.status !== 200) {
@@ -464,4 +464,10 @@
         getTodos()
         .then(data => {console.log('resolved: ' , data)})
         .catch(err => {console.log('rejected: ' , err)}); 
+*/
+
        
+
+
+
+        
